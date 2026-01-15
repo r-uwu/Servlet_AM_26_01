@@ -54,4 +54,38 @@ public class ArticleDeleteServlet extends HttpServlet {
 	            try { if (conn != null && !conn.isClosed()) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
 	        }
 	    }
+	 
+	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+
+	        String inputId = request.getParameter("id");
+
+	        if(inputId == null || inputId.isEmpty()) {
+	            response.sendRedirect("/Servlet_AM_26_01/article/list");
+	            return;
+	        }
+
+	        int id;
+	        try { id = Integer.parseInt(inputId); }
+	        catch(NumberFormatException e) { 
+	            response.sendRedirect("/Servlet_AM_26_01/article/list");
+	            return; 
+	        }
+
+	        try (Connection conn = DriverManager.getConnection(
+	                "jdbc:mysql://127.0.0.1:3306/Servlet_AM_26_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul",
+	                "root", "")) {
+
+	            DBUtil dbUtil = new DBUtil(request, response);
+				SecSql sql = SecSql.from("DELETE FROM article");
+				sql.append("WHERE id = ?", id);
+				dbUtil.update(conn, sql);
+
+	            // 삭제 후 목록으로 redirect
+	            response.sendRedirect("/Servlet_AM_26_01/article/list");
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 }

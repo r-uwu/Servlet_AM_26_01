@@ -23,9 +23,7 @@ public class ArticleListServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html;charset=UTF-8");
-
-		System.out.println(123);
-
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -43,19 +41,51 @@ public class ArticleListServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공");
-
 			DBUtil dbUtil = new DBUtil(request, response);
-
-//			String sql = "SELECT * FROM article;";
+	
+			//페이지네이션
+	        String inputPage = request.getParameter("page");
+	        int page = 1;
+	        
+	        if(inputPage != null && !inputPage.isEmpty()) {
+	            try {
+	                page = Integer.parseInt(inputPage);
+	            } catch(NumberFormatException e) {
+	                page = 1;
+	            }
+	        }
+	        
+	        int itemsPerPage = 10;
+	        int offset = (page-1) * itemsPerPage;
+	        
 			SecSql sql = SecSql.from("SELECT *");
 			sql.append("FROM article");
 			sql.append("ORDER BY id DESC");
+			sql.append("LIMIT ?", itemsPerPage);
+			sql.append("OFFSET ?", offset);
+	        
+	        List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
+	        request.setAttribute("articleRows", articleRows);
+	        request.setAttribute("currentPage", page);
+			
+	        SecSql countSql = SecSql.from("SELECT COUNT(*) AS cnt FROM article");
+            Map<String, Object> result = dbUtil.selectRow(conn, countSql);
+            int totalCount = ((Number) result.get("cnt")).intValue();
+            int totalPages = (int) Math.ceil((double) totalCount / itemsPerPage);
+            request.setAttribute("totalPages", totalPages);
+	
 
-			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
-
-			request.setAttribute("articleRows", articleRows);
+//			SecSql sql = SecSql.from("SELECT *");
+//			sql.append("FROM article");
+//			sql.append("ORDER BY id DESC");
+//
+//			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
+//
+//			request.setAttribute("articleRows", articleRows);
 
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("totalPages", totalPages);
 
 		} catch (SQLException                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    e) {
 			System.out.println("에러 : " + e);
