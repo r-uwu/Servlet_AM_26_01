@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@page import="java.util.Map"%>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
 Map<String, Object> article = (Map<String, Object>) request.getAttribute("article");
 %>
@@ -26,7 +29,11 @@ Map<String, Object> article = (Map<String, Object>) request.getAttribute("articl
             </tr>
             <tr>
                 <th>작성일</th>
-                <td><%= article.get("regDate") %></td>
+				<%
+				LocalDateTime regDate = (LocalDateTime) article.get("regDate");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+				%>
+				<td><%= regDate.format(formatter) %></td>
             </tr>
             <tr>
                 <th>내용</th>

@@ -1,4 +1,4 @@
-package com.KoreaIT.java.AM_jsp;
+package com.KoreaIT.java.AM_jsp.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
+import com.KoreaIT.java.AM_jsp.util.DBUtil;
+
 @WebServlet("/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
 
@@ -20,9 +22,8 @@ public class ArticleDetailServlet extends HttpServlet {
         String inputId = request.getParameter("id");
 
         if (inputId == null || inputId.isEmpty()) {
-//            response.sendRedirect("/article/list");
-        	inputId = "1";
-//            return;
+            response.sendRedirect("/Servlet_AM_26_01/article/list");
+            return;
         }
 
         int id = Integer.parseInt(inputId);
