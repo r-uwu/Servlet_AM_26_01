@@ -70,7 +70,9 @@ if(firstPage < 1) firstPage = 1;
 for(int i = firstPage; i<10+firstPage; i++){ %>
 
 
-<a href="<%= request.getContextPath() %>/article/list?page=<%=i%>"><%=i%></a>
+<a
+style="<%= (i==currentPage) ? "font-weight:bold" : "" %>"
+href="<%= request.getContextPath() %>/article/list?page=<%=i%>"><%=i%></a>
 
 <%
 if(i == totalPage) break;
