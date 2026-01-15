@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
+import com.KoreaIT.java.AM_jsp.util.SecSql;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class ArticleListServlet extends HttpServlet {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-//			Class.forName("com.mysql.cj.jdbc.Driver");
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("클래스 없음");
 			e.printStackTrace();
@@ -45,7 +46,10 @@ public class ArticleListServlet extends HttpServlet {
 
 			DBUtil dbUtil = new DBUtil(request, response);
 
-			String sql = "SELECT * FROM article;";
+//			String sql = "SELECT * FROM article;";
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM article");
+			sql.append("ORDER BY id DESC");
 
 			List<Map<String, Object>> articleRows = dbUtil.selectRows(conn, sql);
 

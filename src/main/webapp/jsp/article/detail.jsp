@@ -43,7 +43,7 @@ Map<String, Object> article = (Map<String, Object>) request.getAttribute("articl
     <% } else { %>
         <p>게시글이 존재하지 않습니다.</p>
     <% } %>
-
+    <p><a href="/Servlet_AM_26_01/article/delete?id=<%=article.get("id")%>">게시글 삭제</a></p>
     <p><a href="/Servlet_AM_26_01/article/list">목록으로 돌아가기</a></p>
 </body>
 </html>

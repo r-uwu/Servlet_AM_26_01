@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
+import com.KoreaIT.java.AM_jsp.util.SecSql;
 
 @WebServlet("/article/detail")
 public class ArticleDetailServlet extends HttpServlet {
@@ -39,7 +40,11 @@ public class ArticleDetailServlet extends HttpServlet {
 
             DBUtil dbUtil = new DBUtil(request, response);
 
-            String sql = "SELECT * FROM article WHERE id = " + id;
+//            String sql = "SELECT * FROM article WHERE id = " + id;
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM article");
+			sql.append("WHERE id = ?", id);
+			
             Map<String, Object> article = dbUtil.selectRow(conn, sql);
 
             request.setAttribute("article", article);

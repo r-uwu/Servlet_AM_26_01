@@ -150,3 +150,7 @@ WHERE id = 3;
 
 SELECT *
 FROM article;
+
+
+DELETE FROM article
+WHERE id =2;
