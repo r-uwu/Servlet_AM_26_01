@@ -37,6 +37,6 @@ Map<String, Object> article = (Map<String, Object>) request.getAttribute("articl
         <p>게시글이 존재하지 않습니다.</p>
     <% } %>
 
-    <p><a href="/article/list">목록으로 돌아가기</a></p>
+    <p><a href="/Servlet_AM_26_01/article/list">목록으로 돌아가기</a></p>
 </body>
 </html>

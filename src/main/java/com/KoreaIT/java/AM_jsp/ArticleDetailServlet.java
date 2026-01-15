@@ -17,7 +17,15 @@ public class ArticleDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String inputId = request.getParameter("id");
+
+        if (inputId == null || inputId.isEmpty()) {
+//            response.sendRedirect("/article/list");
+        	inputId = "1";
+//            return;
+        }
+
+        int id = Integer.parseInt(inputId);
 
         Connection conn = null;
 

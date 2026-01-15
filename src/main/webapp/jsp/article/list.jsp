@@ -16,14 +16,13 @@ int articleTotal = (articleRows != null)? articleRows.size() : 0;
 </head>
 <body>
 	<h1>게시글 목록</h1>
-	<table border="1" cellpadding="8" cellspacing="0">
 	<ul>
 
 	<% 
 	if(articleTotal != 0) {
 	for(int i = 0; i< articleTotal; i++) { %>
-			<li><a href='/article/detail?id=<%= articleRows.get(i).get("id")%>'><%=articleRows.get(i).get("id")%>번</a>, <%=articleRows.get(i).get("regDate")%>,
-			<%=articleRows.get(i).get("title")%>, <%=articleRows.get(i).get("body")%></li>
+			<li><a href='/Servlet_AM_26_01/article/detail?id=<%= articleRows.get(i).get("id")%>'><%=articleRows.get(i).get("id")%>번</a>, <%=articleRows.get(i).get("regDate")%>,
+			<a href='/Servlet_AM_26_01/article/detail?id=<%= articleRows.get(i).get("id")%>'><%=articleRows.get(i).get("title")%></a></li>
 
 			<% }}
 	else {%>
@@ -31,6 +30,5 @@ int articleTotal = (articleRows != null)? articleRows.size() : 0;
 	<%} %>
 			
 	</ul>
-	</table>
 </body>
 </html>
