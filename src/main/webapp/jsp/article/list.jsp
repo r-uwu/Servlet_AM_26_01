@@ -85,5 +85,7 @@ if(i == totalPage) break;
         <div>게시글이 존재하지 않습니다.</div>
 <% } %>
 
+    <div><a href="/Servlet_AM_26_01/home/main">홈으로 이동하기</a></div>
+    <div><a href="/Servlet_AM_26_01/article/doWrite">게시글 작성하기</a></div>
 </body>
 </html>

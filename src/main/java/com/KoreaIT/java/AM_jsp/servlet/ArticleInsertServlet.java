@@ -19,7 +19,20 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ArticleInsertServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    request.getRequestDispatcher("/jsp/article/doWrite.jsp").forward(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		try {
+		    Class.forName("com.mysql.cj.jdbc.Driver");  // 강제 로딩
+		    System.out.println("(arti insert)doPost 내에서 MySQL Driver 로딩 성공");
+		} catch (ClassNotFoundException e) {
+		    e.printStackTrace();
+		}
+		
 
         String inputTitle = request.getParameter("title");
         String inputBody = request.getParameter("body");
@@ -31,12 +44,14 @@ public class ArticleInsertServlet extends HttpServlet {
         if (inputBody == null || inputBody.isEmpty()) {
         	inputBody = "내용 없음";
         }
-		
+        
+        
         Connection conn = null;
 
         try {
-            String url = "jdbc:mysql://127.0.0.1:3306/Servlet_AM_26_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul";
-            String user = "root";
+//            String url = "jdbc:mysql://127.0.0.1:3306/Servlet_AM_26_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul";
+            String url = "jdbc:mysql://127.0.0.1:3306/Servlet_AM_26_01?serverTimezone=Asia/Seoul";
+        	String user = "root";
             String password = "";
 
             conn = DriverManager.getConnection(url, user, password);
@@ -46,20 +61,16 @@ public class ArticleInsertServlet extends HttpServlet {
 			SecSql sql = SecSql.from("INSERT INTO article");
 			sql.append("(title, body) VALUES (?,?)",inputTitle,inputBody);
 			int id = dbUtil.insert(conn, sql);
-
-//            request.getRequestDispatcher("/jsp/article/doWrite.jsp").forward(request, response);
-			request.setAttribute("msg", "새로운 게시글 작성이 완료되었습니다!");
-			request.setAttribute("redirectUrl", request.getContextPath() + "/article/detail?id=" + id);
-			request.getRequestDispatcher("/jsp/article/redirect.jsp").forward(request, response);
-
+		
 			response.sendRedirect(request.getContextPath() + "/article/detail?id=" + id);
 			
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try { if (conn != null && !conn.isClosed()) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
-        }
-	
+			
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try { if (conn != null && !conn.isClosed()) conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+    }
+		
+		
 	}
-
 }
