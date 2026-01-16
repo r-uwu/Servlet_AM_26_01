@@ -22,6 +22,7 @@ height:300px;
 
 </head>
 <body>
+<h1>게시글 작성</h1>
 <form action="/Servlet_AM_26_01/article/doWrite" method="post">
     <div class="article-title"><label>제목</label><input type="text" name="title" required></div>
     <div class="article-body"><label>내용</label><input type="text" name="body" required></div>

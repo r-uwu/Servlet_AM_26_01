@@ -55,6 +55,7 @@ Map<String, Object> article = (Map<String, Object>) request.getAttribute("articl
 	</script>
 
     <p><a href="/Servlet_AM_26_01/article/delete?id=<%=article.get("id")%>">게시글 삭제</a></p>
+    <p><a href="/Servlet_AM_26_01/article/modify?id=<%=article.get("id")%>">게시글 수정</a></p>
     <p><a href="/Servlet_AM_26_01/article/list">목록으로 돌아가기</a></p>
 </body>
 </html>

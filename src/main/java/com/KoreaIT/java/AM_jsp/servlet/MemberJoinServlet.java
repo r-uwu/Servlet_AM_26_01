@@ -59,6 +59,14 @@ public class MemberJoinServlet extends HttpServlet {
 	            conn = DriverManager.getConnection(url, user, password);
 
 	            DBUtil dbUtil = new DBUtil(request, response);
+	            
+	            String pw = request.getParameter("pw");
+	            String pwConfirm = request.getParameter("pwConfirm");
+
+	            if (!pw.equals(pwConfirm)) {
+	                response.getWriter().append("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+	                return;
+	            }
 
 				SecSql sql = SecSql.from("INSERT INTO member (userId, userPw, userName) VALUES");
 				sql.append("(?,?,?)", inputId, inputPw, inputName);

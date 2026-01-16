@@ -3,14 +3,12 @@ package com.KoreaIT.java.AM_jsp.servlet;
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/home/main")
-public class HomeMainServlet extends HttpServlet {
-
+public class MemberDoLoginServlet extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -20,6 +18,8 @@ public class HomeMainServlet extends HttpServlet {
 		    e.printStackTrace();
 		}
 
+//		session.getAttribute();
+		
 		request.getRequestDispatcher("/jsp/home/main.jsp").forward(request, response);
 	}
 }
