@@ -40,6 +40,7 @@ int totalPage = (tpObj != null) ? tpObj : 1;
         <th>번호</th>
         <th>작성일자</th>
         <th>제목</th>
+        <th>작성자</th>
     </tr>
 <%        for(int i = 0; i < articleTotal; i++) { %>
     <tr>
@@ -58,6 +59,9 @@ int totalPage = (tpObj != null) ? tpObj : 1;
             <a href='/Servlet_AM_26_01/article/detail?id=<%= articleRows.get(i).get("id") %>'>
                 <%= articleRows.get(i).get("title") %>
             </a>
+        </td>
+        <td>
+        <%= articleRows.get(i).get("writer") %>
         </td>
     </tr>
 <%   } %>

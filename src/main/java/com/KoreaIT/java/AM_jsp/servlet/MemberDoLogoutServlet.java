@@ -20,40 +20,23 @@ public class MemberDoLogoutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		
-		try {
-		    Class.forName("com.mysql.cj.jdbc.Driver");  // 강제 로딩
-		} catch (ClassNotFoundException e) {
-		    e.printStackTrace();
-		}
-
 		String url = "jdbc:mysql://127.0.0.1:3306/Servlet_AM_26_01?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "";
 
 		Connection conn = null;
 
-		try {
-			conn = DriverManager.getConnection(url, user, password);
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginedMember");
+		session.removeAttribute("loginedMemberId");
+		session.removeAttribute("loginedMemberLoginId");
+		session.removeAttribute("loginedMemberName");
+		
+		
+		response.getWriter()
+		.append(String.format("<script>alert('로그아웃!'); location.replace('../article/list');</script>"));
 
-			HttpSession session = request.getSession();
-			session.removeAttribute("loginedMember");
-			session.removeAttribute("loginedMemberId");
-			session.removeAttribute("loginedMemberLoginId");
-
-			response.getWriter()
-					.append(String.format("<script>alert('로그아웃!'); location.replace('../article/list');</script>"));
-
-		} catch (SQLException e) {
-			System.out.println("에러 : " + e);
-		} finally {
-			try {
-				if (conn != null && !conn.isClosed()) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

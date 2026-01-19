@@ -39,6 +39,10 @@ Map<String, Object> article = (Map<String, Object>) request.getAttribute("articl
                 <th>내용</th>
                 <td><%= article.get("body") %></td>
             </tr>
+            <tr>
+                <th>작성자</th>
+                <td><%= article.get("writer") %></td>
+            </tr>
         </table>
     <% } else { %>
         <p>게시글이 존재하지 않습니다.</p>
