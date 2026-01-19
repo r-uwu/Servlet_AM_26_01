@@ -4,7 +4,7 @@
     Integer loginedMemberId = (Integer) session.getAttribute("loginedMemberId");
 	String loginedMemberName = null;
 	if (loginedMemberId != null) {
-	    Object nameObj = session.getAttribute("loginedMembeName");
+	    Object nameObj = session.getAttribute("loginedMemberName");
 	    if (nameObj != null) {
 	        loginedMemberName = nameObj.toString();
 	    }

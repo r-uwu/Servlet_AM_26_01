@@ -69,7 +69,7 @@ public class MemberDoLoginServlet extends HttpServlet {
 			session.setAttribute("loginedMemberName", memberRow.get("userName"));
 
 			response.getWriter().append(String.format(
-					"<script>alert('%s님 로그인!'); location.replace('../article/list');</script>", memberRow.get("userName")));
+					"<script>alert('%s님 로그인!'); location.replace('../home/main');</script>", memberRow.get("userName")));
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);

@@ -74,7 +74,7 @@ public class ArticleInsertServlet extends HttpServlet {
             DBUtil dbUtil = new DBUtil(request, response);
 
 			SecSql sql = SecSql.from("INSERT INTO article");
-			sql.append("(title, body, writer) VALUES (?,?,?)",inputTitle,inputBody,loginedMemberName);
+			sql.append("(title, body, writer, userId) VALUES (?,?,?,?)",inputTitle,inputBody,loginedMemberName, loginedMemberId);
 			int id = dbUtil.insert(conn, sql);
 		
 			response.sendRedirect(request.getContextPath() + "/article/detail?id=" + id);

@@ -34,7 +34,7 @@ public class MemberDoLogoutServlet extends HttpServlet {
 		
 		
 		response.getWriter()
-		.append(String.format("<script>alert('로그아웃!'); location.replace('../article/list');</script>"));
+		.append(String.format("<script>alert('로그아웃!'); location.replace('../home/main');</script>"));
 
 		
 	}

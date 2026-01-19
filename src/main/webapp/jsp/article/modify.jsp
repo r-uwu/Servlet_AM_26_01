@@ -2,9 +2,55 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
-%>
+	
+	<%
+	Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+	%>
+	
+	<%
+    Integer loginedMemberId = (Integer) session.getAttribute("loginedMemberId");
+    
+    if (loginedMemberId == null) {
+    	System.out.println("로그인 세션 없음");
+        response.getWriter().append(
+            "<script>alert('로그인 후 이용해주세요'); location.replace('../member/login');</script>"
+        );
+           return;
+    }
+    %>
+    <%
+    System.out.println(articleRow);
+    System.out.println("articleRow id : "+articleRow.get("userId"));
+    //int articleMemberId = (Integer) articleRow.get("userId");
+    
+    
+    int articleMemberId = 0;
+    
+    
+    
+    if (articleRow.get("userId") == null || articleRow.get("userId").equals("")) {
+    	System.out.println("(modify) 수정 정보 불일치");
+
+        response.getWriter().append(
+                "<script>alert('작성자만 수정할 수 있습니다'); location.replace('../article/list');</script>");
+    }
+    else        articleMemberId = Integer.parseInt(articleRow.get("userId").toString());
+       
+    /*
+    if (articleRow.get("userId") != null || !articleRow.get("userId").equals("")) {
+        articleMemberId = Integer.parseInt(articleRow.get("userId").toString());
+    }
+    
+    else {
+    	System.out.println("(modify) 수정 정보 불일치");
+
+    	
+        response.getWriter().append(
+                "<script>alert('작성자만 수정할 수 있습니다'); location.replace('../article/list');</script>");
+	}
+    */
+	%>
+
 <!DOCTYPE html>
 <html>
 <head>
