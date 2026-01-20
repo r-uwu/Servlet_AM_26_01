@@ -33,6 +33,7 @@
 
         response.getWriter().append(
                 "<script>alert('작성자만 수정할 수 있습니다'); location.replace('../article/list');</script>");
+        return;
     }
     else        articleMemberId = Integer.parseInt(articleRow.get("userId").toString());
        
