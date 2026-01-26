@@ -206,30 +206,30 @@ public class DispatcherServlet extends HttpServlet {
 						articleController.showList();
 						break;
 					case "detail":
-						//articleController.showDetail();
+						articleController.showDetail();
 						break;
 					case "write":
-						//articleController.showWrite();
+						articleController.showWrite();
 						break;
 					case "doWrite":
-						//articleController.doWrite();
+						articleController.showWrite();
 						break;
 					case "modify":
-						//articleController.showModify();
+						articleController.showModify();
 						break;
 					case "doModify":
-						//articleController.doModify();
+						articleController.showModify();
 						break;
 					case "doDelete":
-						//articleController.doDelete();
+						articleController.doDelete();
 						break;
 					default:
-						response.sendError(HttpServletResponse.SC_NOT_FOUND);
+						response.sendRedirect(request.getContextPath() + "/home/main");
 				}
 				return;
 			}
 
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			response.sendRedirect(request.getContextPath() + "/home/main");
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);

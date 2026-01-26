@@ -27,7 +27,7 @@
     <% } %>
     
     
-    <div><a href="/Servlet_AM_26_01/article/doWrite">게시글 작성</a></div>
+    <div><a href="/Servlet_AM_26_01/s/article/doWrite">게시글 작성</a></div>
     <div><a href="/Servlet_AM_26_01/s/article/list">게시글 목록 보기</a></div>
     
     <br>
